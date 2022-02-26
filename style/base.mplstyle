@@ -1,0 +1,29 @@
+lines.linewidth: 0.6
+lines.markersize: 2
+patch.linewidth: 0.6
+font.family: serif
+font.size: 7.2
+text.usetex: True
+axes.linewidth: 0.5
+axes.prop_cycle: cycler(color=["0", "0.4", "0.2", "0.6"]) + cycler(linestyle=["-", "--", ":", "-."])
+xtick.major.width: 0.4
+xtick.color: gray
+xtick.labelcolor: black
+xtick.direction: in
+ytick.major.width: 0.4
+ytick.color: gray
+ytick.labelcolor: black
+ytick.direction: in
+legend.fancybox: False
+legend.framealpha: 1
+legend.edgecolor: black
+
+figure.figsize: 1.9685, 1.9685 # inch = 50 mm
+figure.dpi: 600
+figure.autolayout: True
+
+savefig.format: pdf
+savefig.bbox: tight
+savefig.pad_inches: 0.0041667 # inch = 0.3 pt
+pgf.rcfonts: False
+pgf.texsystem: lualatex

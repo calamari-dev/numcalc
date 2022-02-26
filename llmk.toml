@@ -1,0 +1,11 @@
+source = "main.tex"
+sequence = ["latex", "bibtex", "mendex"]
+bibtex = "upbibtex"
+
+[programs.mendex]
+command = "mendex"
+target = "%B.idx"
+opts = ["-g", "-s"]
+args = ["jpbase", "%T"]
+generated_target = true
+postprocess = "latex"

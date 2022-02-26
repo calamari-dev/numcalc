@@ -1,0 +1,28 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jlreq-narrowbaselines}[2022/02/19 jlreq-narrowbaselines]
+\RequirePackage{etoolbox}
+
+\newif{\ifnbl@narrowbaselines}
+\newlength{\nbl@adskip}
+\newlength{\nbl@asskip}
+\newlength{\nbl@bdskip}
+\newlength{\nbl@bsskip}
+
+\newcommand{\narrowbaselines}{%
+\nbl@narrowbaselinestrue
+\setlength{\nbl@adskip}{\abovedisplayskip}
+\setlength{\nbl@asskip}{\abovedisplayshortskip}
+\setlength{\nbl@bdskip}{\belowdisplayskip}
+\setlength{\nbl@bsskip}{\belowdisplayshortskip}
+\DeclareCommandCopy{\nbl@nomath}{\@nomath}
+\RenewCommandCopy{\@nomath}{\@gobble}
+\@currsize\selectfont
+\RenewCommandCopy{\@nomath}{\nbl@nomath}
+\setlength{\abovedisplayskip}{\nbl@adskip}
+\setlength{\abovedisplayshortskip}{\nbl@asskip}
+\setlength{\belowdisplayskip}{\nbl@bdskip}
+\setlength{\belowdisplayshortskip}{\nbl@bsskip}}
+
+\everydisplay=\expandafter{\the\everydisplay \narrowbaselines}
+\preto{\normalsize}{\ifnbl@narrowbaselines\jlreq@baselineskip=1.2\jlreq@fontsize\fi}
+\preto{\small}{\ifnbl@narrowbaselines\jlreq@baselineskip=1.1\jlreq@fontsize\fi}

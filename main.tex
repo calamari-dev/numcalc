@@ -1,0 +1,69 @@
+\RequirePackage{luacode}
+
+\begin{luacode*}
+local lfs = require "lfs"
+
+function getProjectPath()
+  local path = lfs.currentdir():gsub("\\", "/")
+  local llmk = io.open(path.."/llmk.toml", "r")
+
+  while llmk == nil do
+    path = string.match(path, "(.+)/")
+    llmk = io.open(path.."/llmk.toml", "r")
+  end
+
+  io.close(llmk)
+  tex.sprint(path)
+end
+\end{luacode*}
+
+\edef\currentdir{\directlua{getProjectPath()}}
+\newcommand{\jlreqkanjiskip}{0pt plus 0.1\zw minus 0.01\zw}
+\newcommand{\jlreqxkanjiskip}{0.25em plus 0.15em minus 0.06em}
+
+\documentclass[disablejfam,report,paper=a5,fontsize=9bp,head_space=20mm,line_length=112mm,number_of_lines=32]{jlreq}
+\usepackage{\currentdir/style/jlreq-narrowbaselines}
+\usepackage{\currentdir/style/base}
+\usepackage{subfiles}
+
+\title{数値計算}
+\author{いか（GitHub: calamari-dev）}
+\date{\today}
+\makeindex
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\pqty}{\lparen}{\rparen}
+\DeclarePairedDelimiterX{\ooival}[2]{\lparen}{\rparen}{#1,#2}
+\DeclarePairedDelimiterX{\ccival}[2]{\lbrack}{\rbrack}{#1,#2}
+\DeclarePairedDelimiter{\eval}{.}{\rvert}
+\reDeclarePairedDelimiterInnerWrapper{\eval}{nostarnonscaled}{#2#3}
+
+\providecommand{\given}{}
+\newcommand{\SetSymbol}[1][]{\nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}}
+\DeclarePairedDelimiterX{\Set}[1]{\lbrace}{\rbrace}{\renewcommand\given{\SetSymbol[\delimsize]}#1}
+
+\newcommand{\numset}[1]{\symbb{#1}}
+\newcommand{\polyset}[2]{#1[#2]}
+\newcommand{\degree}[1]{#1^{\mathord{\circ}}}
+\newcommand{\divdiff}[2][]{#1[#2]}
+\newcommand{\krez}{\symrm{\pi}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\subfile{chapter/interpolation/index}
+
+\subfile{chapter/differentiation/index}
+
+\clearpage
+\bibliographystyle{jplain}
+\nocite{*}
+\bibliography{main}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{索引}
+\printindex
+
+\end{document}
