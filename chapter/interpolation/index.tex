@@ -79,7 +79,7 @@
 \cref{subsection:lagrange}では補間多項式を計算する方法として，\cref{equation:lagrange}に基づくラグランジュ補間を示した．
 \cref{subsection:newton}では「ニュートン補間」という，補間多項式を計算するもう1つの方法を紹介する．
 
-\begin{definition}{差商}{divided_difference}
+\begin{definition}{差商}{divided_difference}\index{\(\divdiff{P_1,\dots,P_n}\)}\index{\(\divdiff[f]{x_1,\dots,x_n}\)}
 \(xy\)平面上の点\(P_1=(p_1,q_1),\dots,P_n=(p_n,q_n)\)は，どの2点も\(x\)座標を共有しないとする．
 このとき，\(P_1,\dots,P_n\)の\impact{差商}\index{さしょう@差商}（divided differences）\(\divdiff{P_1,\dots,P_n}\)を次のように定義する\footnotemark ．
 \[
@@ -232,37 +232,6 @@
 また，有効数字4桁の数表に基づく限り，補間多項式の次数をこれ以上増やす必要は無いことも分かる．
 \end{example}
 
-\section{ルンゲ現象}
-関数を補間多項式で近似するときは，通過させる点（この点を\impact{標本点}\index{ひょうほんてん@標本点}という）の取り方に注意する必要がある．
-\[
-  f(x) = \frac{1}{1+25x^2},
-  \quad x_i = -1+2\cdot\frac{i-1}{n-1}\quad(i=1,\dots,n)
-\]
-とおき，\(p_n(x)\)を点\((x_1,f(x_1)),\dots,(x_n,f(x_n))\)に関する補間多項式とすると，\(p_5(x)\)と\(p_9(x)\)のグラフは\cref{figure:runge}のようになる．
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics{runge.pdf}
-  \caption{\(f(x)\)と\(n=5,9\)のときの\(p_n(x)\)}
-  \label{figure:runge}
-\end{figure}
-
-\cref{figure:runge}によれば，補間多項式が通るべき点の個数\(n\)を増やすほど，\(p_n(x)\)は（特に\(x=\pm 1\)付近で著しく）\(f(x)\)からかけ離れている．
-この現象を\impact{ルンゲ現象}\index{るんげげんしょう@ルンゲ現象}（Runge's phenomenon）という．
-
-ルンゲ現象を回避するには，補間多項式が通るべき点の\(x\)座標を\impact{チェビシェフノード}\index{ちぇびしぇふのーど@チェビシェフノード}（Chebyshev nodes）である
-\[
-  x_i = \cos\pqty*{\frac{2i-1}{2n}\krez}\quad (i=1,\dots,n)
-\]
-にすると良いことが知られている\cite{horinouchi2015}．このとき，\(n=9\)の下で補間多項式\(p(x)\)は\cref{figure:chebyshev}のようになる．
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics{chebyshev.pdf}
-  \caption{チェビシェフノードを利用した補間多項式}
-  \label{figure:chebyshev}
-\end{figure}
-
 \section{補間多項式とテイラー多項式の関係}
 \label{section:taylor}
 \cref{section:taylor}では，補間多項式がテイラー多項式\(T_n(x)=\sum_{k=0}^nf^{(k)}(t)(x-t)^k/k!\)
@@ -319,23 +288,129 @@
 
 議論を簡単にするために，標本点を等間隔にとって\(x_i=t+(i-1)h\)（\(h\neq 0\)）とおく．
 また，十分小さな\(\varepsilon>0\)に対して，関数\(f\)は\(\ccival{t-\varepsilon}{t+\varepsilon}\)を含むある開区間で\(n\)階微分可能かつ，
-\(f\)の\(n\)次導関数は\(\ccival{t-\varepsilon}{t+\varepsilon}\)で連続であるとする．
+\(f\)の\(n\)次導関数は\(\ooival{t-\varepsilon}{t+\varepsilon}\)で連続であるとする．
 
 点\((x_1,f(x_1)),\dots,(x_{n+1},f(x_{n+1}))\)に関する補間多項式\(p(x)\)は
 \[
   p(x) = f(x_1)+\sum_{k=1}^n\divdiff[f]{x_1,\dots,x_{k+1}}(x-x_1)\dotsm(x-x_k)
 \]
-と書ける．ここで，\(h\)の値を\(\abs{h}<\varepsilon/n\)が成立するように十分小さくとる．このとき\(x_1,\dots,x_{n+1}\in\ccival{t-\varepsilon}{t+\varepsilon}\)なので，\cref{theorem:divdif_mean}から各\(\divdiff[f]{x_1,\dots,x_{k+1}}\)に対して\(\xi_k\in\ooival{x_1}{x_{n+1}}\)が存在し
+と書ける．ここで，\(h\)の値を\(\abs{h}<\varepsilon/n\)が成立するように十分小さくとる．このとき\(x_1,\dots,x_{n+1}\in\ccival{t-\varepsilon}{t+\varepsilon}\)なので，
+\cref{theorem:divdif_mean}から各\(\divdiff[f]{x_1,\dots,x_{k+1}}\)に対して\(\xi_k\in\ooival{m}{M}\)（\(m=\min\Set{x_1,x_{n+1}}\)，\(M=\max\Set{x_1,x_{n+1}}\)）が存在し
 \[
   \divdiff[f]{x_1,\dots,x_{k+1}} = \frac{f^{(k)}(\xi_k)}{k!}
 \]
-を満たす．\(f^{(k)}\)は\(\ccival{t-\varepsilon}{t+\varepsilon}\)で連続だから，
-\(h\to 0\)で右辺は\(f^{(k)}(t)/k!\)に収束する．したがって
+を満たす．また，\(m,M\to t\)（\(h\to 0\)）より\(f^{(k)}(\xi_k)\to f^{(k)}(t)\)（\(h\to 0\)）である．したがって
 \begin{align}
   \label{equation:newton_taylor}
   p(x) &=f(x_1)+\sum_{k=1}^n\divdiff[f]{x_1,\dots,x_{k+1}}(x-x_1)\dotsm (x-x_k) \\
   &\to f(t)+\sum_{k=1}^n\frac{f^{(k)}(t)}{k!}(x-t)^k\quad(h\to 0)
 \end{align}
-である．右辺はテイラー多項式の形になっているので，標本点どうしの間隔が十分に狭ければ，補間多項式をテイラー多項式の近似と見なせる．
+であり，右辺はテイラー多項式の形になっている．よって，標本点どうしの間隔が十分に狭ければ，補間多項式をテイラー多項式の近似と見なせる．
+
+\section{数値微分}
+関数を補間多項式で近似できるのなら，関数の微分係数もまた，補間多項式の微分係数で近似できると考えられる．
+すなわち，\(t\)の値が標本点\(x_1,\dots,x_n\)の値に十分近いとき，点\((x_1,f(x_1)),\dots,(x_n,f(x_n))\)に関する補間多項式を\(p_n(x)\)とすると\(f'(t)\fallingdotseq\eval{p_n'(x)}_{x=t}\)であると期待できる．
+
+このような微分の近似を\impact{数値微分}\index{すうちびぶん@数値微分}（numerical differentiation）という．数値微分をするときは\(x_1,\dots,x_n\)を等間隔に取ることが多い．以下にこの場合の例を示す．
+
+\begin{example}
+\label{example:numerical_differentiation_1}
+\((x_1,x_2)=(t,t+h)\)のとき\(p_2(x)=f(t)+\divdiff[f]{t,t+h}(x-t)\)である．よって，\(p_2(x)\)に基づく\(f\)の数値微分は
+\[
+  f'(t) \fallingdotseq \eval{p_2'(x)}_{x=t}
+  = \divdiff[f]{t,t+h}
+  = \frac{f(t+h)-f(t)}{h}
+\]
+となる．\(h\to 0\)では，右辺は厳密に\(f'(t)\)と等しくなる．
+\end{example}
+
+\begin{example}
+\label{example:numerical_differentiation_2}
+\((x_1,x_2,x_3)=(t-h,t,t+h)\)のとき
+\[
+  p_3(x) = f(t-h)+\divdiff[f]{t-h,t}\pqty*{x-(t-h)}+\divdiff[f]{t-h,t,t+h}\pqty*{x-(t-h)}(x-t)
+\]
+である．よって，\(p_3(x)\)に基づく\(f\)の数値微分は
+\begin{align*}
+  f'(t) &\fallingdotseq \eval{p_3'(x)}_{x=t} = \divdiff[f]{t-h,t}+\divdiff[f]{t-h,t,t+h}h \\
+  &= \frac{f(t)-f(t-h)}{h}+\frac{(f(t)-f(t-h))/h-(f(t+h)-f(t))/h}{(t-h)-(t+h)}h \\
+  &= \frac{f(t+h)-f(t-h)}{2h}  
+\end{align*}
+となる．この式についても，\(h\to 0\)では
+\[
+  \frac{f(t+h)-f(t-h)}{2h} = \frac{f(t+h)-f(t)}{2h}+\frac{f(t)-f(t-h)}{2h}
+  \to f'(t)\quad(h\to 0)
+\]
+が成立する．
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{differentiation.pdf}
+  \caption{数値微分の比較}
+  \label{figure:differentiation}
+\end{figure}
+
+\cref{figure:differentiation}は，2つの直線
+\begin{align*}
+  l_1 &\colon y=\frac{f(t+h)-f(t)}{h}(x-t)+f(t), \\
+  l_2 &\colon y=\frac{f(t+h)-f(t-h)}{2h}(x-(t-h))+f(t-h)
+\end{align*}
+を\(f(x)=\sin(x)\)，\(t=\krez/3\)，\(h=0.2\)の場合について示したものである．
+\cref{figure:differentiation}によれば，\(l_2\)は\(l_1\)よりも傾きが\(1/2=\cos(\krez/3)\)に近い．
+したがって，\((\sin(x))'\)の\(x=\krez/3\)における近似に関しては，\cref{example:numerical_differentiation_1}の近似よりも\cref{example:numerical_differentiation_2}の近似のほうが，真値に近い値を与えている．
+
+\cref{example:numerical_differentiation_1}の近似と\cref{example:numerical_differentiation_2}の近似をより数学的に比較するために，次の記法を定義する．
+
+\begin{definition}{ランダウの記号}{landau-notation}\index{\(f(x)=\Order(g(x))\)}
+関数\(f\)，\(g\)は実数\(a\)の周りで定義されているとする．正数\(\delta\)，\(C\)が存在し「\(\abs{x-a}<\delta\implies\abs{f(x)}\leq C\abs{g(x)}\)」が成り立つとき
+\[
+  f(x) = \Order(g(x))\quad(x\to a)
+\]
+と書く．この記法を\impact{ランダウの記号}\index{らんだうのきごう@ランダウの記号}（Big O notation）という．
+また，\(a\)の値が文脈から明らかなときは\(f(x)=\Order(g(x))\)とも表記する．
+\end{definition}
+
+\begin{example}
+関数\(f\)，\(g\)は実数\(a\)の周りで定義され，ある開区間\(\ooival{a-\varepsilon}{a+\varepsilon}\)（\(\varepsilon>0\)）上で\(g(x)\neq 0\)であるとする．
+このとき，\(f(x)/g(x)\to 0\)（\(x\to a\)）なら\(f(x)=\Order(g(x))\)（\(x\to a\)）である．
+\end{example}
+
+\section{ルンゲ現象}
+関数を補間多項式で近似するときは，通過させる点（この点を\impact{標本点}\index{ひょうほんてん@標本点}という）の取り方に注意する必要がある．
+\[
+  f(x) = \frac{1}{1+25x^2},
+  \quad x_i = -1+2\cdot\frac{i-1}{n-1}\quad(i=1,\dots,n)
+\]
+とおき，\(p_n(x)\)を点\((x_1,f(x_1)),\dots,(x_n,f(x_n))\)に関する補間多項式とすると，\(p_5(x)\)と\(p_9(x)\)のグラフは\cref{figure:runge}のようになる．
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{runge.pdf}
+  \caption{\(f(x)\)と\(n=5,9\)のときの\(p_n(x)\)}
+  \label{figure:runge}
+\end{figure}
+
+\cref{figure:runge}によれば，補間多項式が通るべき点の個数\(n\)を増やすほど，\(p_n(x)\)は（特に\(x=\pm 1\)付近で著しく）\(f(x)\)からかけ離れている．
+この現象を\impact{ルンゲ現象}\index{るんげげんしょう@ルンゲ現象}（Runge's phenomenon）という．
+
+ルンゲ現象を回避するには，補間多項式が通るべき点の\(x\)座標を\impact{チェビシェフノード}\index{ちぇびしぇふのーど@チェビシェフノード}（Chebyshev nodes）である
+\[
+  x_i = \cos\pqty*{\frac{2i-1}{2n}\krez}\quad (i=1,\dots,n)
+\]
+にすると良いことが知られている\cite{horinouchi2015}．このとき，\(n=9\)の下で補間多項式\(p(x)\)は\cref{figure:chebyshev}のようになる．
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{chebyshev.pdf}
+  \caption{チェビシェフノードを利用した補間多項式}
+  \label{figure:chebyshev}
+\end{figure}
+
+\section*{演習問題}
+\begin{problem}
+5点\((t-2h,f(t-2h)),\dots,(t+2h,f(t+2h))\)に関する補間多項式\(p(x)\)に基づく\(f\)の数値微分を計算せよ．
+また，\(f\)に適当な仮定を課して\(f'(t)=p'(t)+\Order(h^3)\)（\(h\to 0\)）が成立することを示せ．
+\end{problem}
 
 \end{document}

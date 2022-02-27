@@ -36,6 +36,7 @@
 \crefname{theorem}{定理}{定理}
 \crefname{proposition}{命題}{命題}
 \crefname{lemma}{補題}{補題}
+\crefname{corollary}{系}{系}
 \crefname{exercise}{例題}{例題}
 \creflabelformat{chapter}{#2#1#3章}
 \creflabelformat{section}{#2#1#3節}
@@ -64,11 +65,13 @@
 \newcounter{thcounter}
 \numberwithin{thcounter}{chapter}
 \declaretheoremstyle[headfont=\sffamily\bfseries,headpunct={},postheadspace=1\zw,qed=\diamondsuit]{egstyle}
+\declaretheorem[style=egstyle,name=問]{problem}
 \declaretheorem[sibling=thcounter,style=egstyle,name=例]{example}
 \newtcbtheorem[use counter=thcounter]{definition}{定義}{mytheorem=definition}{definition}
 \newtcbtheorem[use counter=thcounter]{theorem}{定理}{mytheorem=theorem}{theorem}
 \newtcbtheorem[use counter=thcounter]{proposition}{命題}{mytheorem=proposition}{proposition}
 \newtcbtheorem[use counter=thcounter]{lemma}{補題}{mytheorem=lemma}{lemma}
+\newtcbtheorem[use counter=thcounter]{corollary}{系}{mytheorem=corollary}{corollary}
 \newtcbtheorem[use counter=thcounter]{exercise}{例題}{mytheorem=exercise}{exercise}
 
 % 索引

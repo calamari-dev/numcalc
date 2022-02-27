@@ -4,7 +4,7 @@
 
 ## PDFのダウンロード方法
 
-現在はベータ版を<https://github.com/calamari-dev/numcalc/releases>で配布しています．
+現在はベータ版を<https://github.com/calamari-dev/numcalc/releases>で配布しています．なお，`main`ブランチにあるLaTeXソースは下書きやメモを含むため，誤りを含む可能性が多分にあります．そのため，内容に関するご指摘は最新のPDFに対してお願い致します．
 
 ## ライセンス
 

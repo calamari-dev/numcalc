@@ -24,12 +24,14 @@ end
 \documentclass[disablejfam,report,paper=a5,fontsize=9bp,head_space=20mm,line_length=112mm,number_of_lines=32]{jlreq}
 \usepackage{\currentdir/style/jlreq-narrowbaselines}
 \usepackage{\currentdir/style/base}
-\usepackage{subfiles}
+\usepackage{subfiles,xr}
 
 \title{数値計算}
 \author{いか（GitHub: calamari-dev）}
 \date{\today}
 \makeindex
+
+\externaldocument[ITP-]{chapter/interpolation/index}
 
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 \DeclarePairedDelimiter{\pqty}{\lparen}{\rparen}
@@ -42,11 +44,13 @@ end
 \newcommand{\SetSymbol}[1][]{\nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}}
 \DeclarePairedDelimiterX{\Set}[1]{\lbrace}{\rbrace}{\renewcommand\given{\SetSymbol[\delimsize]}#1}
 
+\newcommand{\where}{\quad\text{where}\quad}
 \newcommand{\numset}[1]{\symbb{#1}}
 \newcommand{\polyset}[2]{#1[#2]}
 \newcommand{\degree}[1]{#1^{\mathord{\circ}}}
 \newcommand{\divdiff}[2][]{#1[#2]}
 \newcommand{\krez}{\symrm{\pi}}
+\DeclareMathOperator{\Order}{O}
 
 \begin{document}
 \maketitle
@@ -54,7 +58,7 @@ end
 
 \subfile{chapter/interpolation/index}
 
-\subfile{chapter/differentiation/index}
+\subfile{chapter/integration/index}
 
 \clearpage
 \bibliographystyle{jplain}
