@@ -300,11 +300,10 @@
   \divdiff[f]{x_1,\dots,x_{k+1}} = \frac{f^{(k)}(\xi_k)}{k!}
 \]
 を満たす．また，\(m,M\to t\)（\(h\to 0\)）より\(f^{(k)}(\xi_k)\to f^{(k)}(t)\)（\(h\to 0\)）である．したがって
-\begin{align}
-  \label{equation:newton_taylor}
+\begin{align*}
   p(x) &=f(x_1)+\sum_{k=1}^n\divdiff[f]{x_1,\dots,x_{k+1}}(x-x_1)\dotsm (x-x_k) \\
   &\to f(t)+\sum_{k=1}^n\frac{f^{(k)}(t)}{k!}(x-t)^k\quad(h\to 0)
-\end{align}
+\end{align*}
 であり，右辺はテイラー多項式の形になっている．よって，標本点どうしの間隔が十分に狭ければ，補間多項式をテイラー多項式の近似と見なせる．
 
 \section{数値微分}
@@ -333,7 +332,7 @@
 である．よって，\(p_3(x)\)に基づく\(f\)の数値微分は
 \begin{align*}
   f'(t) &\fallingdotseq \eval{p_3'(x)}_{x=t} = \divdiff[f]{t-h,t}+\divdiff[f]{t-h,t,t+h}h \\
-  &= \frac{f(t)-f(t-h)}{h}+\frac{(f(t)-f(t-h))/h-(f(t+h)-f(t))/h}{(t-h)-(t+h)}h \\
+  &= \frac{f(t)-f(t-h)}{h}+\frac{(f(t+h)-f(t))/h-(f(t)-f(t-h))/h}{(t+h)-(t-h)}h \\
   &= \frac{f(t+h)-f(t-h)}{2h}  
 \end{align*}
 となる．この式についても，\(h\to 0\)では
@@ -372,6 +371,7 @@
 \end{definition}
 
 \begin{example}
+\label{example:bigo_ratio}
 関数\(f\)，\(g\)は実数\(a\)の周りで定義され，ある\(\varepsilon>0\)に対し
 \[
   g(x)\neq 0\quad(0<\abs{x-a}<\varepsilon)
@@ -391,19 +391,19 @@
 \end{example}
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.5\textwidth}
+  \begin{minipage}{0.5\linewidth}
     \centering
     \includegraphics{asymptotic.pdf}
     \caption{\(x\sin(1/x)\)のグラフ}
   \end{minipage}%
-  \begin{minipage}{0.5\textwidth}
+  \begin{minipage}{0.5\linewidth}
     \centering
     \includegraphics{nolimits.pdf}
     \caption{\(\sin(1/x)\)の片対数グラフ}
   \end{minipage}
 \end{figure}
 
-なお，ランダウの記号が両辺に複数回表れるときは，式の意味を以下のように定義する．
+なお，ランダウの記号が両辺に複数回表れるときは，式の意味を以下の通り定義する．
 任意の関数\(f\)に対し，関数の集合\([f]\)を\([f]=\Set{\phi\given\phi(x)=\Order(f(x))}\)とおく．
 また，\([\holder]\)に対する演算を
 \[
@@ -426,7 +426,7 @@
 \[
   \abs{x^2+f(x)} \leq \abs{x^2}+\abs{f(x)}
   \leq \abs{x}+C\abs{\sin x}
-  \leq (1+C)\abs{x}\quad(0<\abs{x}<\delta)
+  \leq (1+C)\abs{x}\quad(0<\abs{x}<\min\Set{1,\delta})
 \]
 となる．よって，\(f(x)=\Order(\sin x)\)なら\(x^2+f(x)=\Order(x)\)だから，\(x^2+\Order(\sin x)=\Order(x)\)である．
 \end{example}
@@ -440,6 +440,30 @@
   \quad f(x)+g(x) = \Order(\phi(x)+\psi(x))
 \]
 \end{proposition}
+
+ランダウの記号は収束の「速さ」を見比べるときに便利であり，よく利用される．
+\cref{example:convergence_speed}は，ランダウの記号を使って収束の速さを比較する例である．
+
+\begin{example}
+\label{example:convergence_speed}
+関数\(f(x)=x^2\)，\(g(x)=\napr^x-1\)はどちらも\(x\to 0\)で\(0\)に収束するが，
+\(x\)の値を\(0\)に近づけていくと，\(f(x)\)の値は\(g(x)\)の値よりも急速に\(0\)へと近づくことが\cref{figure:speed}から分かる．
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{speed.pdf}
+  \caption{\(f(x)\)と\(g(x)\)のグラフ}
+  \label{figure:speed}
+\end{figure}
+
+この理由はランダウの記号によって説明できる．まず
+\[
+  \abs*{\frac{g(h)}{h}} = \abs*{\frac{\napr^h-1}{h}}
+  \to \abs{(\eval{(\napr^x)'}_{x=0})}
+  = 1\quad(h\to 0)
+\]
+なので，\cref{example:bigo_ratio}から\(f(x)=\Order(x)\)（\(x\to 0\)）である．
+\end{example}
 
 \section{ルンゲ現象}
 関数を補間多項式で近似するときは，通過させる点（この点を\impact{標本点}\index{ひょうほんてん@標本点}という）の取り方に注意する必要がある．
@@ -456,10 +480,10 @@
   \label{figure:runge}
 \end{figure}
 
-\cref{figure:runge}によれば，補間多項式が通るべき点の個数\(n\)を増やすほど，\(p_n(x)\)は（特に\(x=\pm 1\)付近で著しく）\(f(x)\)からかけ離れている．
+\cref{figure:runge}によれば，標本点の個数\(n\)を増やすほど，\(p_n(x)\)は（特に\(x=\pm 1\)付近で著しく）\(f(x)\)からかけ離れている．
 この現象を\impact{ルンゲ現象}\index{るんげげんしょう@ルンゲ現象}（Runge's phenomenon）という．
 
-ルンゲ現象を回避するには，補間多項式が通るべき点の\(x\)座標を\impact{チェビシェフノード}\index{ちぇびしぇふのーど@チェビシェフノード}（Chebyshev nodes）である
+ルンゲ現象を回避するには，標本点の\(x\)座標を\impact{チェビシェフノード}\index{ちぇびしぇふのーど@チェビシェフノード}（Chebyshev nodes）である
 \[
   x_i = \cos\pqty*{\frac{2i-1}{2n}\krez}\quad (i=1,\dots,n)
 \]
