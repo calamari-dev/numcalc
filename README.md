@@ -26,5 +26,3 @@ pipenv run ./publish.py
 + STIX Two Text（<https://www.stixfonts.org/>）
 + Source Han Serif（<https://source.typekit.com/source-han-serif/jp/>）
 + Source Han Sans（<https://source.typekit.com/source-han-sans/jp/>）
-
-また，事前にjpbase.istをllmk.tomlと同じディレクトリに配置する必要があります．jpbase.istは[mendexのGitHubリポジトリ](https://github.com/texjporg/mendex-doc)から入手できます．
