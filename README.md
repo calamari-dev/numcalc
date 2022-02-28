@@ -14,13 +14,13 @@
 
 以下は，この資料から派生する資料を作りたい方に向けた情報です．
 
-PDFを生成するには，Pipenvと最新のTeX Liveがインストールされた環境で，次のコマンドを実行してください．
+PDFを生成するには，Pipenvと最新のTeX Liveがインストールされた環境で，次のコマンドを実行してください（`.vscode/settings.json`は環境変数`PIPENV_VENV_IN_PROJECT`の値が`1`であるもとで，次のコマンドを実行したと仮定して書いています）．
 
 ```
 pipenv run ./publish.py
 ```
 
-ただし，以下のフォントをあらかじめインストールしてください．
+ただし，以下のフォントをあらかじめインストールしておいてください．
 
 + Liberation Sans（<https://github.com/liberationfonts/liberation-fonts>）
 + STIX Two Text（<https://www.stixfonts.org/>）
