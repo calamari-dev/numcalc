@@ -309,7 +309,7 @@
 
 \section{数値微分}
 関数を補間多項式で近似できるのなら，関数の微分係数もまた，補間多項式の微分係数で近似できると考えられる．
-すなわち，\(t\)の値が標本点\(x_1,\dots,x_n\)の値に十分近いとき，点\((x_1,f(x_1)),\dots,(x_n,f(x_n))\)に関する補間多項式を\(p_n(x)\)とすると\(f'(t)\fallingdotseq\eval{p_n'(x)}_{x=t}\)であると期待できる．
+すなわち，\(t\)の値が\(x_1,\dots,x_n\)の値に十分近いとき，点\((x_1,f(x_1)),\dots,(x_n,f(x_n))\)に関する補間多項式を\(p_n(x)\)とすると\(f'(t)\fallingdotseq\eval{p_n'(x)}_{x=t}\)であると期待できる．
 
 このような微分の近似を\impact{数値微分}\index{すうちびぶん@数値微分}（numerical differentiation）という．数値微分をするときは\(x_1,\dots,x_n\)を等間隔に取ることが多い．以下にこの場合の例を示す．
 
@@ -363,7 +363,7 @@
 \cref{example:numerical_differentiation_1}の近似と\cref{example:numerical_differentiation_2}の近似をより数学的に比較するために，次の記法を定義する．
 
 \begin{definition}{ランダウの記号}{landau-notation}\index{\(f(x)=\Order(g(x))\)}
-関数\(f\)，\(g\)は実数\(a\)の周りで定義されているとする．正数\(\delta\)，\(C\)が存在し「\(\abs{x-a}<\delta\implies\abs{f(x)}\leq C\abs{g(x)}\)」が成り立つとき
+関数\(f\)，\(g\)は実数\(a\)の周りで定義されているとする．正数\(\delta\)，\(C\)が存在して「\(0<\abs{x-a}<\delta\implies\abs{f(x)}\leq C\abs{g(x)}\)」が成り立つとき
 \[
   f(x) = \Order(g(x))\quad(x\to a)
 \]
@@ -372,9 +372,74 @@
 \end{definition}
 
 \begin{example}
-関数\(f\)，\(g\)は実数\(a\)の周りで定義され，ある開区間\(\ooival{a-\varepsilon}{a+\varepsilon}\)（\(\varepsilon>0\)）上で\(g(x)\neq 0\)であるとする．
-このとき，\(f(x)/g(x)\to 0\)（\(x\to a\)）なら\(f(x)=\Order(g(x))\)（\(x\to a\)）である．
+関数\(f\)，\(g\)は実数\(a\)の周りで定義され，ある\(\varepsilon>0\)に対し
+\[
+  g(x)\neq 0\quad(0<\abs{x-a}<\varepsilon)
+\]
+であるとする．このとき，極限値\(\lim_{x\to a}\abs{f(x)/g(x)}\)が存在して有限なら\(f(x)=\Order(g(x))\)（\(x\to a\)）である．
+実際\(\abs{f(x)/g(x)}\to\alpha\)（\(x\to a\)）なら，\(C>0\)と\(\delta\in\ooival{0}{\varepsilon}\)の組で「\(\abs{x-a}<\delta\implies\abs{\abs{f(x)/g(x)}-\alpha}<C\)」を満たすものが存在する．
+よって，\(\abs{x-a}<\delta\)なら
+\[
+  \abs*{\frac{f(x)}{g(x)}} = \abs*{\abs*{\frac{f(x)}{g(x)}}-\alpha+\alpha}
+  \leq \abs*{\abs*{\frac{f(x)}{g(x)}}-\alpha}+\alpha
+  < C+\alpha
+\]
+だから\(\abs{f(x)}\leq(C+\alpha)\abs{g(x)}\)である．したがって\(f(x)=\Order(g(x))\)が成立する．
+
+一方，\(x\neq 0\)のとき\(f(x)=x\sin(1/x)\)，\(x=0\)のとき\(f(x)=0\)とおくと，\(\abs{f(x)}\leq\abs{x}\)なので\(f(x)=\Order(x)\)（\(x\to 0\)）だが，
+\(\abs{f(x)/x}=\abs{\sin(1/x)}\)は原点付近で激しく振動するから，極限値\(\lim_{x\to 0}\abs{f(x)/x}\)は存在しない．
 \end{example}
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics{asymptotic.pdf}
+    \caption{\(x\sin(1/x)\)のグラフ}
+  \end{minipage}%
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics{nolimits.pdf}
+    \caption{\(\sin(1/x)\)の片対数グラフ}
+  \end{minipage}
+\end{figure}
+
+なお，ランダウの記号が両辺に複数回表れるときは，式の意味を以下のように定義する．
+任意の関数\(f\)に対し，関数の集合\([f]\)を\([f]=\Set{\phi\given\phi(x)=\Order(f(x))}\)とおく．
+また，\([\holder]\)に対する演算を
+\[
+  [f]+[g] = \Set{\phi+\psi\given\text{\(\phi\in[f]\)，\(\psi\in[g]\)}},
+  \quad f-\exp[g] = \Set{f-(\exp\cpst\phi)\given\phi\in[g]}
+\]
+などのように定める．そして
+\begin{gather*}
+  \Order(f(x))+\Order(g(x))=\Order(h(x)) \iff [f]+[g]\in [h], \\
+  \Order(h(x))=f(x)-\exp(\Order(g(x))) \iff [h]\in f-\exp[g]
+\end{gather*}
+のように，\(\Order(\holder(x))\)の式を\([\holder]\)の包含関係によって定義する．
+
+\begin{example}
+\[
+  x^2+\Order(\sin x) = \Order(x)\quad(x\to 0)
+\]
+である．実際，\(f(x)=\Order(\sin x)\)なら「\(0<\abs{x}<\delta\implies\abs{f(x)}\leq C\abs{\sin x}\)」を満たす正数\(\delta\)，\(C\)が存在し，
+さらに\(\abs{\sin x}\leq\abs{x}\)なので
+\[
+  \abs{x^2+f(x)} \leq \abs{x^2}+\abs{f(x)}
+  \leq \abs{x}+C\abs{\sin x}
+  \leq (1+C)\abs{x}\quad(0<\abs{x}<\delta)
+\]
+となる．よって，\(f(x)=\Order(\sin x)\)なら\(x^2+f(x)=\Order(x)\)だから，\(x^2+\Order(\sin x)=\Order(x)\)である．
+\end{example}
+
+次の命題の証明は省略する．
+
+\begin{proposition}{}{}
+\(f(x)=\Order(\phi(x))\)，\(g(x)=\Order(\psi(x))\)（\(x\to a\)）なら
+\[
+  f(x)\Order(g(x)) = \Order(f(x)g(x)),
+  \quad f(x)+g(x) = \Order(\phi(x)+\psi(x))
+\]
+\end{proposition}
 
 \section{ルンゲ現象}
 関数を補間多項式で近似するときは，通過させる点（この点を\impact{標本点}\index{ひょうほんてん@標本点}という）の取り方に注意する必要がある．
