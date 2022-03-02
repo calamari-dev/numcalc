@@ -44,22 +44,26 @@
 % セマンティクス
 \newcommand{\impact}[1]{{\gtfamily\bfseries #1}}
 
-\newlength{\base@parindent}
-\newenvironment{lead}%
-  {\hfill\setlength{\base@parindent}{\parindent}\begin{minipage}{\textwidth-4\zw}\setlength{\parindent}{\base@parindent}}%
-  {\end{minipage}\vspace{2\zh}}
+\newenvironment{lead}{\begin{list}{}{%
+  \setlength{\listparindent}{\parindent}%
+  \setlength{\itemindent}{\parindent}%
+  \setlength{\leftmargin}{2\zw}%
+  \setlength{\rightmargin}{0pt}}%
+  \item\relax
+}{\end{list}}
 
 % 定理環境
 \tcbset{%
   mytheorem/.style={%
-    enhanced,breakable,
+    standard jigsaw,breakable,
     theorem style=plain,label type={#1},
     fonttitle=\sffamily\bfseries,
     description delimiters={\inhibitglue（}{）\hspace{-0.5\zw}},
-    terminator sign={\hspace{1\zw}},
-    colframe=black,colback=white,colbacktitle=white,coltitle=black,
-    top=1.5mm,right=1.5mm,bottom=1.5mm,left=1.5mm,
-    arc=0mm,boxrule=0.4pt}}
+    terminator sign={\hspace{\zw}},
+    colframe=currcolor,coltext=currcolor,coltitle=currcolor,
+    opacityback=0,opacitybacktitle=0,
+    top=0.5\zh,right=0.5\zw,bottom=0.5\zh,left=0.5\zw,
+    arc=0pt,boxrule=0.4pt}}
 
 \newcounter{thcounter}
 \numberwithin{thcounter}{chapter}
@@ -72,6 +76,13 @@
 \newtcbtheorem[use counter=thcounter]{lemma}{補題}{mytheorem=lemma}{lemma}
 \newtcbtheorem[use counter=thcounter]{corollary}{系}{mytheorem=corollary}{corollary}
 \newtcbtheorem[use counter=thcounter]{exercise}{例題}{mytheorem=exercise}{exercise}
+
+\pretocmd{\definition}{\colorlet{currcolor}{.}}{}{}
+\pretocmd{\theorem}{\colorlet{currcolor}{.}}{}{}
+\pretocmd{\proposition}{\colorlet{currcolor}{.}}{}{}
+\pretocmd{\lemma}{\colorlet{currcolor}{.}}{}{}
+\pretocmd{\corollary}{\colorlet{currcolor}{.}}{}{}
+\pretocmd{\exercise}{\colorlet{currcolor}{.}}{}{}
 
 % 索引
 \newcommand{\idxdelim}{\hfill}

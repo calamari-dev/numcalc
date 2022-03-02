@@ -24,8 +24,8 @@ end
 \documentclass[disablejfam,report,paper=a5,fontsize=9bp,head_space=20mm,line_length=112mm,number_of_lines=32]{jlreq}
 \usepackage{\currentdir/style/jlreq-narrowbaselines}
 \usepackage{\currentdir/style/base}
-\usepackage{makeidx}
 \usepackage{subfiles,xr}
+\usepackage{makeidx}
 
 \title{数値計算}
 \author{いか（GitHub: calamari-dev）}
@@ -43,7 +43,7 @@ end
 
 \providecommand{\given}{}
 \newcommand{\SetSymbol}[1][]{\nonscript\:#1\vert\allowbreak\nonscript\:\mathopen{}}
-\DeclarePairedDelimiterX{\Set}[1]{\lbrace}{\rbrace}{\renewcommand\given{\SetSymbol[\delimsize]}#1}
+\DeclarePairedDelimiterX{\Set}[1]{\lbrace}{\rbrace}{\renewcommand{\given}{\SetSymbol[\delimsize]}#1}
 
 \newcommand{\where}{\quad\text{where}\quad}
 \newcommand{\holder}{\mathord{\ast}}
