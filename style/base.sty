@@ -53,17 +53,28 @@
 }{\end{list}}
 
 % 定理環境
-\tcbset{%
-  mytheorem/.style={%
-    standard jigsaw,breakable,
-    theorem style=plain,label type={#1},
+\tcbset{
+  mytheorem/.style={
+    standard jigsaw,
+    breakable,
+    theorem style=plain,
+    label type={#1},
     fonttitle=\sffamily\bfseries,
     description delimiters={\inhibitglue（}{）\hspace{-0.5\zw}},
     terminator sign={\hspace{\zw}},
-    colframe=currcolor,coltext=currcolor,coltitle=currcolor,
-    opacityback=0,opacitybacktitle=0,
-    top=0.5\zh,right=0.5\zw,bottom=0.5\zh,left=0.5\zw,
-    arc=0pt,boxrule=0.4pt}}
+    colframe=currcolor,
+    coltext=currcolor,
+    coltitle=currcolor,
+    opacityback=0,
+    opacitybacktitle=0,
+    top=0.5\zh,
+    right=0.5\zw,
+    bottom=0.5\zh,
+    left=0.5\zw,
+    arc=0pt,
+    boxrule=0.4pt
+  }
+}
 
 \newcounter{thcounter}
 \numberwithin{thcounter}{chapter}

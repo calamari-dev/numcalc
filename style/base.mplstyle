@@ -1,6 +1,6 @@
 lines.linewidth: 0.6
 lines.markersize: 2
-patch.linewidth: 0.6
+patch.linewidth: 0.5
 font.family: serif
 font.size: 7.2
 text.usetex: True
