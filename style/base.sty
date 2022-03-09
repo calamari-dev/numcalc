@@ -31,12 +31,6 @@
 \crefname{figure}{図}{図}
 \crefname{equation}{式}{式}
 \crefname{example}{例}{例}
-\crefname{definition}{定義}{定義}
-\crefname{theorem}{定理}{定理}
-\crefname{proposition}{命題}{命題}
-\crefname{lemma}{補題}{補題}
-\crefname{corollary}{系}{系}
-\crefname{exercise}{例題}{例題}
 \creflabelformat{chapter}{#2#1#3章}
 \creflabelformat{section}{#2#1#3節}
 \creflabelformat{subsection}{#2#1#3小節}
@@ -81,19 +75,18 @@
 \declaretheoremstyle[headfont=\sffamily\bfseries,headpunct={},postheadspace=1\zw,qed=\diamondsuit]{egstyle}
 \declaretheorem[style=egstyle,name=問]{problem}
 \declaretheorem[sibling=thcounter,style=egstyle,name=例]{example}
-\newtcbtheorem[use counter=thcounter]{definition}{定義}{mytheorem=definition}{definition}
-\newtcbtheorem[use counter=thcounter]{theorem}{定理}{mytheorem=theorem}{theorem}
-\newtcbtheorem[use counter=thcounter]{proposition}{命題}{mytheorem=proposition}{proposition}
-\newtcbtheorem[use counter=thcounter]{lemma}{補題}{mytheorem=lemma}{lemma}
-\newtcbtheorem[use counter=thcounter]{corollary}{系}{mytheorem=corollary}{corollary}
-\newtcbtheorem[use counter=thcounter]{exercise}{例題}{mytheorem=exercise}{exercise}
 
-\pretocmd{\definition}{\colorlet{currcolor}{.}}{}{}
-\pretocmd{\theorem}{\colorlet{currcolor}{.}}{}{}
-\pretocmd{\proposition}{\colorlet{currcolor}{.}}{}{}
-\pretocmd{\lemma}{\colorlet{currcolor}{.}}{}{}
-\pretocmd{\corollary}{\colorlet{currcolor}{.}}{}{}
-\pretocmd{\exercise}{\colorlet{currcolor}{.}}{}{}
+\newcommand{\declareframedtheorem}[2]{%
+  \crefname{#1}{#2}{#2}%
+  \newtcbtheorem[use counter=thcounter]{base@#1}{#2}{mytheorem=#1}{#1}%
+  \newenvironment{#1}[2]{\colorlet{currcolor}{.}\begin{base@#1}{##1}{##2}}{\end{base@#1}}}
+
+\declareframedtheorem{definition}{定義}
+\declareframedtheorem{theorem}{定理}
+\declareframedtheorem{proposition}{命題}
+\declareframedtheorem{lemma}{補題}
+\declareframedtheorem{corollary}{系}
+\declareframedtheorem{exercise}{例題}
 
 % 索引
 \newcommand{\idxdelim}{\hfill}
